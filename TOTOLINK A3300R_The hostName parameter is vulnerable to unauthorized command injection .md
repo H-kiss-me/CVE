@@ -1,6 +1,6 @@
 A3300R AC1200 Dual-Band Giga Wireless Router V17.0.0cu.557_B20221024 
 The hostName parameter is vulnerable to unauthorized command injection
-固件包链接:
+Firmware package link:
 https://totolink.tw/support_view/A3300R
 https://drive.google.com/file/d/1S8j9Kfa-TEJR0sBF5oZ_GyEiXtAbGKub/view?usp=drive_link
 
