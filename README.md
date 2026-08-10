@@ -18,36 +18,7 @@ Core logic：
 <img width="1496" height="1140" alt="image" src="https://github.com/user-attachments/assets/ef6b8a63-8cd4-4ed2-be97-548e87890448" />
 <img width="2392" height="822" alt="image" src="https://github.com/user-attachments/assets/0c76b26c-2c52-4beb-969a-3723a06b15f3" />
 
-pseudocode：
-int __fastcall sub_422380(int a1, int a2)   // a1 = HTTP 请求对象
-{
-  ...
-  v3 = sub_40A4FC(a1, (int)"proto");        // 取 HTTP 参数 proto
-  n6 = atoi(v3);                            // n6 = proto 数值
-  ...
-  switch ( n6 )                             // 仅 case 0/3/4 有实现
-  {
-    case 0: ...static...  goto LABEL_23;    // 直接返回
-    case 3: ...pppoe...   goto LABEL_23;    // 直接返回
-    case 4: ...pptp...                    // 落到 LABEL_38/46
-  }
-  // ↓↓↓ proto 取 0/3/4/6 之外的任意值时 switch 落空，进入此块 ↓↓↓
-  if ( n6 != 6 )                            // n6 != 6 即进入
-  {
-    v29 = sub_40A4FC(a1, (int)"hostName");  // ★ 直接取 hostName 参数，无过滤
-    v30 = sub_40A4FC(a1, (int)"dhcpMtu");
-    Uci_Set_Str(10, wan, "proto", "dhcp");
-    ...
-    if ( *v29 )                             // hostName 非空
-    {
-      Uci_Set_Str(11, "main", "hostname", v29);
-      Uci_Set_Str(10, "wan", "hostname", v29);
-      doSystem("echo  '%s'  > /proc/sys/kernel/hostname", v29);  // ★★★ 命令注入点
-    }
-    goto LABEL_23;
-  }
-  ... // n6 == 6 的 l2tp 分支
-}
+
 
 Injection point: doSystem("echo '%s' > /proc/sys/kernel/hostname", v29)
 doSystem is a helper function provided by the TOTOLINK shared library, and its operation is basically vsnprintf(buf, fmt, args); system(buf);. After %s is replaced with the raw value of hostName, the whole string is passed to /bin/sh -c for execution. The format string wraps %s in single quotes, but an attacker can put a single quote ' in hostName to close the original quotes and inject arbitrary shell metacharacters.
