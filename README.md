@@ -1,4 +1,4 @@
-<img width="2392" height="822" alt="image" src="https://github.com/user-attachments/assets/f8abd3f0-f77d-406c-b753-37de985db76e" />A3300R AC1200 雙頻Giga無線路由器 V17.0.0cu.557_B20221024 命令执行漏洞
+A3300R AC1200 雙頻Giga無線路由器 V17.0.0cu.557_B20221024 命令执行漏洞
 固件包链接:
 https://totolink.tw/support_view/A3300R
 https://drive.google.com/file/d/1S8j9Kfa-TEJR0sBF5oZ_GyEiXtAbGKub/view?usp=drive_link
